@@ -11,12 +11,13 @@
 # simplest way is with linux alpine
 # hop onto box with docker on it and cd to dir of the file you are staring at
 # You will get a static-compiled binary and english language library file in the end.
-if [ ! -e /tmp/cc/ccextractor-README.txt ]; then
+SCRIPT=`basename $0`
+if [ ! -e /tmp/cc/${SCRIPT} ]; then
   rm -rf /tmp/cc;
   mkdir -p -m777 /tmp/cc;
   mkdir -p -m777 ../lib/tessdata/;
-  cp ccextractor-README.txt /tmp/cc/;
-  sudo docker run -v /tmp/cc:/tmp/cc --rm -it alpine:latest /tmp/cc/ccextractor-README.txt;
+  cp ${SCRIPT} /tmp/cc/;
+  sudo docker run -v /tmp/cc:/tmp/cc --rm -it alpine:latest /tmp/cc/${SCRIPT};
   # NOTE: _AFTER_ testing/validating, you can promote it from "ccextractor.next" to "ccextractor"... ;-)
   cp /tmp/cc/*traineddata ../lib/tessdata/;
   chmod go-w ../lib/tessdata/;
